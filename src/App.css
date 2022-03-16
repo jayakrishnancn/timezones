@@ -1,38 +1,24 @@
+.table {
+  width: 100%;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 5px;
+}
 .App {
+  padding: 10px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.table tr td {
+  border: 2px solid #ccc;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.table tr td:hover {
+  border: 2px solid #36f;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.timeinput {
+  margin: 10px;
+  padding: 5px;
 }

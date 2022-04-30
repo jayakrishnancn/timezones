@@ -5,6 +5,7 @@ import Table from "./components/Table";
 function App() {
   return (
     <div className="App">
+      <h1 className="title">TimeZone</h1>
       <Button>Add Timezone</Button>
       <Table />
     </div>

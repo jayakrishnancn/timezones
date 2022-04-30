@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import "./style.css";
 
 interface ButtonProps {
-  children: ReactNode;
-  onClick: () => void;
+  children?: ReactNode;
+  onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {

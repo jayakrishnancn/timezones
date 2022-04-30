@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 describe("<App />", () => {
@@ -6,5 +6,9 @@ describe("<App />", () => {
     const spy = jest.spyOn(global.console, "error");
     render(<App />);
     expect(spy).not.toHaveBeenCalled();
+  });
+  it("Expects an Add Timezone button", () => {
+    render(<App />);
+    expect(screen.getByRole("button")).toHaveTextContent("Add");
   });
 });

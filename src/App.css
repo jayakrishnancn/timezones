@@ -9,12 +9,8 @@
 }
 
 .table tr td {
-  border: 2px solid #eee;
   transition: 0.2s;
   cursor: pointer;
-}
-.table tr td:hover {
-  border: 2px solid #36f;
 }
 
 .timeinput {

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import "./App.css";
+import Button from "./components/button";
 import { timeZones } from "./utils/timezones";
 
 function App() {
@@ -31,11 +32,11 @@ function App() {
   const LONDON_TZ_ID = 37;
   return (
     <div className="App">
-      <button
+      <Button
         onClick={() => setSetStartTimes((prev) => [...prev, LONDON_TZ_ID])}
       >
-        ADD
-      </button>
+        Add Timezone
+      </Button>
 
       <table className="table">
         <tbody>

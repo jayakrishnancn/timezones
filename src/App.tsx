@@ -15,9 +15,6 @@ function App() {
       const amPm = time < 12 ? "AM" : "PM";
       time = time > 12 ? time % 12 : time;
       clock.push(`${time || 12} ${amPm}`);
-      /* time += 0.5;
-      time = time > 12 ? time % 12 : time;
-      clock.push(`${time || 12} ${amPm}`); */
     }
     return clock;
   }, []);

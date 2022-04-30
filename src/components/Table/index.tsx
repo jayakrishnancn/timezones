@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import Select from "react-select";
+import { DEFAULT_TIMEZONE_ID } from "../../constants";
 import { timeZones } from "../../utils/timezones";
+import Select from "react-select";
 
 function Table() {
-  const [startTimes, setSetStartTimes] = useState<number[]>(
-    JSON.parse(localStorage.getItem("saved") ?? "[37]")
-  );
+  const [startTimes, setSetStartTimes] = useState<number[]>([
+    DEFAULT_TIMEZONE_ID,
+  ]);
 
   const shiftTimeWithOffset = useCallback((offset: number): string[] => {
     const clock: string[] = [];
@@ -16,6 +17,13 @@ function Table() {
       clock.push(`${time || 12} ${amPm}`);
     }
     return clock;
+  }, []);
+  // load data from localStorage
+  useEffect(() => {
+    const data = localStorage.getItem("saved");
+    if (data) {
+      setSetStartTimes(JSON.parse(data));
+    }
   }, []);
 
   useEffect(() => {

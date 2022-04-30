@@ -1,14 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DEFAULT_TIMEZONE_ID } from "../../constants";
 import { timeZones } from "../../utils/timezones";
 import Select from "react-select";
-
-function Table() {
+import Button from "../button";
+interface Props {
+  tableRef: React.MutableRefObject<any>;
+}
+function Table(props: Props) {
   const [startTimes, setSetStartTimes] = useState<number[]>([
     DEFAULT_TIMEZONE_ID,
   ]);
 
-  const shiftTimeWithOffset = useCallback((offset: number): string[] => {
+  const addNewTimeZone = () => {
+    setSetStartTimes((prev) => [...prev, DEFAULT_TIMEZONE_ID]);
+  };
+
+  useEffect(() => {
+    props.tableRef.current = { addNew: addNewTimeZone };
+  }, [props.tableRef]);
+
+  const shiftTimeWithOffset = (offset: number): string[] => {
     const clock: string[] = [];
     for (let i = 1; i <= 24; i++) {
       let time = i + offset;
@@ -17,7 +28,8 @@ function Table() {
       clock.push(`${time || 12} ${amPm}`);
     }
     return clock;
-  }, []);
+  };
+
   // load data from localStorage
   useEffect(() => {
     const data = localStorage.getItem("saved");
@@ -62,6 +74,18 @@ function Table() {
                 </td>
               )
             )}
+            <td>
+              <Button
+                variant="RED"
+                onClick={() => {
+                  setSetStartTimes((prev: number[]) =>
+                    prev.filter((_, prevIndex) => prevIndex !== index)
+                  );
+                }}
+              >
+                Delete
+              </Button>
+            </td>
           </tr>
         ))}
       </tbody>

@@ -18,3 +18,11 @@
 .btn:hover {
   background: #006e52;
 }
+
+.btn.red {
+  background-color: #dd4f39;
+}
+
+.btn.red:hover {
+  background: #dd2f39;
+}

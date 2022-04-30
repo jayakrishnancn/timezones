@@ -6,11 +6,10 @@
 }
 .App {
   padding: 10px;
-  text-align: center;
 }
 
 .table tr td {
-  border: 2px solid #ccc;
+  border: 2px solid #eee;
   transition: 0.2s;
   cursor: pointer;
 }
@@ -21,4 +20,7 @@
 .timeinput {
   margin: 10px;
   padding: 5px;
+}
+.time {
+  background-image: linear-gradient(to right, #fff 50%, #bfd7ea 60%);
 }

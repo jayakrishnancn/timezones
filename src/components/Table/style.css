@@ -1,0 +1,8 @@
+.time:hover {
+  border: 2px solid blue;
+}
+
+.time {
+  border: 2px solid #ccc;
+  text-align: center;
+}

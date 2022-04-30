@@ -3,6 +3,8 @@ import { DEFAULT_TIMEZONE_ID } from "../../constants";
 import { timeZones } from "../../utils/timezones";
 import Select from "react-select";
 import Button from "../button";
+import "./style.css";
+
 interface Props {
   tableRef: React.MutableRefObject<any>;
 }

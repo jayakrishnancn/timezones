@@ -20,7 +20,7 @@ function Table(props: Props) {
   ]);
 
   const addNewTimeZone = () => {
-    setSetStartTimes((prev) => [...prev, DEFAULT_TIMEZONE_ID]);
+    setSetStartTimes((prev) => [DEFAULT_TIMEZONE_ID, ...prev]);
   };
 
   useEffect(() => {

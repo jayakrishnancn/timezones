@@ -2,13 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import {
   DATE_FORMAT,
   DATE_TIME_FORMAT,
-  DEFAULT_TIMEZONE_ID,
   LT,
   LT_SPACE,
   TIME_FORMAT,
 } from "../../constants";
 import Select from "react-select";
-import moment from "../../utils/tz";
+import moment, { defaultTimeZoneId } from "../../utils/tz";
 import "./style.css";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 
@@ -17,11 +16,11 @@ interface Props {
 }
 function Table(props: Props) {
   const [startTimes, setSetStartTimes] = useState<number[]>([
-    DEFAULT_TIMEZONE_ID,
+    defaultTimeZoneId,
   ]);
 
   const addNewTimeZone = () => {
-    setSetStartTimes((prev) => [DEFAULT_TIMEZONE_ID, ...prev]);
+    setSetStartTimes((prev) => [defaultTimeZoneId, ...prev]);
   };
 
   useEffect(() => {

@@ -12,7 +12,7 @@ import "./style.css";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 
 interface Props {
-  tableRef: React.MutableRefObject<any>;
+  tableRef?: React.MutableRefObject<any>;
 }
 function Table(props: Props) {
   const [startTimes, setSetStartTimes] = useState<number[]>([
@@ -24,7 +24,9 @@ function Table(props: Props) {
   };
 
   useEffect(() => {
-    props.tableRef.current = { addNew: addNewTimeZone };
+    if (props.tableRef) {
+      props.tableRef.current = { addNew: addNewTimeZone };
+    }
   }, [props.tableRef]);
 
   // load data from localStorage
@@ -62,7 +64,6 @@ function Table(props: Props) {
           .format(LT_SPACE),
       });
     }
-    console.log("zone: " + zone, now, times);
     return times;
   };
   return (
@@ -82,6 +83,7 @@ function Table(props: Props) {
               <td>
                 <div style={{ width: 140 }}>
                   <Select
+                    aria-label={"Select-" + index}
                     menuPosition="fixed"
                     components={{
                       IndicatorSeparator: () => null,
@@ -117,6 +119,7 @@ function Table(props: Props) {
               )}
               <td style={{ textAlign: "center" }}>
                 <DeleteIcon
+                  aria-label={"delete row " + index}
                   className="deleteIcon"
                   onClick={() => {
                     setSetStartTimes((prev: number[]) =>

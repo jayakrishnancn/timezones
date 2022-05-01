@@ -110,7 +110,9 @@ function Table(props: Props) {
                     className={"time" + (current ? " current" : "")}
                     key={index}
                   >
-                    {time}
+                    {time.split(" ").map((item, index) => {
+                      return <div key={item + "-" + index}>{item}</div>;
+                    }, "")}
                   </td>
                 )
               )}

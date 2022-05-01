@@ -7,9 +7,11 @@
   padding: 10px;
   max-width: 992px;
   margin: auto;
+  overflow-y: visible;
+  overflow-x: auto;
 }
 
-.table tr td {
+.table tr td.time {
   transition: 0.2s;
   cursor: pointer;
 }

@@ -4,6 +4,7 @@ import {
   DATE_TIME_FORMAT,
   DEFAULT_TIMEZONE_ID,
   LT,
+  LT_SPACE,
   TIME_FORMAT,
 } from "../../constants";
 import Select from "react-select";
@@ -59,7 +60,7 @@ function Table(props: Props) {
         current: Number(moment(now, DATE_TIME_FORMAT).format("HH")) === i,
         time: moment(today + " " + i + ":00", `${DATE_FORMAT} ${TIME_FORMAT}`)
           .tz(zone)
-          .format(LT),
+          .format(LT_SPACE),
       });
     }
     console.log("zone: " + zone, now, times);
@@ -80,8 +81,9 @@ function Table(props: Props) {
           {startTimes.map((zoneId, index) => (
             <tr key={index}>
               <td>
-                <div style={{ width: 150 }}>
+                <div style={{ width: 140 }}>
                   <Select
+                    menuPosition="fixed"
                     components={{
                       IndicatorSeparator: () => null,
                     }}
@@ -99,14 +101,7 @@ function Table(props: Props) {
                   />
                 </div>
               </td>
-              <td
-                style={{
-                  textAlign: "center",
-                  cursor: "default",
-                  paddingRight: 5,
-                  paddingLeft: 5,
-                }}
-              >
+              <td className="current-time">
                 {moment.tz(TIME_ZONES[zoneId].zone).format(LT)}
               </td>
               {getTimeOf(TIME_ZONES[zoneId].zone).map(

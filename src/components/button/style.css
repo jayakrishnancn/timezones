@@ -4,7 +4,7 @@
   cursor: pointer;
   text-align: center;
   border: 0;
-  padding: 7px 16px;
+  padding: 6px 16px;
   min-height: 36px;
   min-width: 36px;
   color: #ffffff;
@@ -25,4 +25,8 @@
 
 .btn.red:hover {
   background: #dd2f39;
+}
+
+.btn.S {
+  padding: 2px 2px;
 }

@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
-import { DEFAULT_TIMEZONE_ID } from "../../constants";
-import { timeZones } from "../../utils/timezones";
+import { useEffect, useMemo, useState } from "react";
+import {
+  DATE_FORMAT,
+  DATE_TIME_FORMAT,
+  DEFAULT_TIMEZONE_ID,
+  TIME_FORMAT,
+} from "../../constants";
 import Select from "react-select";
 import Button from "../button";
+import moment from "../../utils/tz";
 import "./style.css";
+import deleteIcon from "../../assets/icons/delete.svg";
 
 interface Props {
   tableRef: React.MutableRefObject<any>;
@@ -21,17 +27,6 @@ function Table(props: Props) {
     props.tableRef.current = { addNew: addNewTimeZone };
   }, [props.tableRef]);
 
-  const shiftTimeWithOffset = (offset: number): string[] => {
-    const clock: string[] = [];
-    for (let i = 1; i <= 24; i++) {
-      let time = i + offset;
-      const amPm = time < 12 ? "AM" : "PM";
-      time = time > 12 ? time % 12 : time;
-      clock.push(`${time || 12} ${amPm}`);
-    }
-    return clock;
-  };
-
   // load data from localStorage
   useEffect(() => {
     const data = localStorage.getItem("saved");
@@ -44,34 +39,60 @@ function Table(props: Props) {
     startTimes && localStorage.setItem("saved", JSON.stringify(startTimes));
   }, [startTimes]);
 
-  const TIME_ZONES = timeZones.map((item, value) => ({
-    label: item.abbr + item.text,
-    value,
-    offset: item.offset,
-  }));
+  const TIME_ZONES = useMemo(
+    () =>
+      moment.tz.names().map((label, index) => ({
+        value: index,
+        label: label + " " + moment.tz(label).format("Z"),
+        zone: label,
+      })),
+    []
+  );
+
+  const getTimeOf = (zone: string): { current: boolean; time: string }[] => {
+    if (!zone) return [];
+    const times = [];
+    const now = moment().format(DATE_TIME_FORMAT);
+    const today = moment().format(DATE_FORMAT);
+    for (let i = 0; i <= 23; i++) {
+      times.push({
+        current: Number(moment(now, DATE_TIME_FORMAT).format("HH")) === i,
+        time: moment(today + " " + i + ":00", `${DATE_FORMAT} ${TIME_FORMAT}`)
+          .tz(zone)
+          .format("LT"),
+      });
+    }
+    console.log("zone: " + zone, now, times);
+    return times;
+  };
   return (
     <table className="table">
       <tbody>
-        {startTimes.map((startTime, index) => (
-          <tr key={startTime}>
+        {startTimes.map((zoneId, index) => (
+          <tr key={index}>
             <td>
-              <Select
-                onChange={(option) => {
-                  option !== null &&
-                    setSetStartTimes((prev) => {
-                      prev[index] = option?.value;
-                      return [...prev];
-                    });
-                }}
-                value={TIME_ZONES.find(
-                  (item) => item.value === startTimes[index]
-                )}
-                options={TIME_ZONES}
-              />
+              <div style={{ width: 200 }}>
+                <Select
+                  onChange={(option) => {
+                    option !== null &&
+                      setSetStartTimes((prev) => {
+                        prev[index] = option?.value;
+                        return [...prev];
+                      });
+                  }}
+                  value={TIME_ZONES.find(
+                    (item) => item.value === startTimes[index]
+                  )}
+                  options={TIME_ZONES}
+                />
+              </div>
             </td>
-            {shiftTimeWithOffset(TIME_ZONES[startTime].offset).map(
-              (time, index) => (
-                <td className="time" key={index}>
+            {getTimeOf(TIME_ZONES[zoneId].zone).map(
+              ({ time, current }, index) => (
+                <td
+                  className={"time" + (current ? " current" : "")}
+                  key={index}
+                >
                   {time}
                 </td>
               )
@@ -79,13 +100,14 @@ function Table(props: Props) {
             <td>
               <Button
                 variant="RED"
+                size="S"
                 onClick={() => {
                   setSetStartTimes((prev: number[]) =>
                     prev.filter((_, prevIndex) => prevIndex !== index)
                   );
                 }}
               >
-                Delete
+                <img src={deleteIcon} alt="delete row" height="15px" />
               </Button>
             </td>
           </tr>

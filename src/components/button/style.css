@@ -28,5 +28,7 @@
 }
 
 .btn.S {
-  padding: 2px 2px;
+  padding: 2px 4px;
+  min-width: 0;
+  min-height: 0;
 }

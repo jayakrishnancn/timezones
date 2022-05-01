@@ -3,13 +3,13 @@ import {
   DATE_FORMAT,
   DATE_TIME_FORMAT,
   DEFAULT_TIMEZONE_ID,
+  LT,
   TIME_FORMAT,
 } from "../../constants";
 import Select from "react-select";
-import Button from "../button";
 import moment from "../../utils/tz";
 import "./style.css";
-import deleteIcon from "../../assets/icons/delete.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 
 interface Props {
   tableRef: React.MutableRefObject<any>;
@@ -59,61 +59,81 @@ function Table(props: Props) {
         current: Number(moment(now, DATE_TIME_FORMAT).format("HH")) === i,
         time: moment(today + " " + i + ":00", `${DATE_FORMAT} ${TIME_FORMAT}`)
           .tz(zone)
-          .format("LT"),
+          .format(LT),
       });
     }
     console.log("zone: " + zone, now, times);
     return times;
   };
   return (
-    <table className="table">
-      <tbody>
-        {startTimes.map((zoneId, index) => (
-          <tr key={index}>
-            <td>
-              <div style={{ width: 200 }}>
-                <Select
-                  onChange={(option) => {
-                    option !== null &&
-                      setSetStartTimes((prev) => {
-                        prev[index] = option?.value;
-                        return [...prev];
-                      });
-                  }}
-                  value={TIME_ZONES.find(
-                    (item) => item.value === startTimes[index]
-                  )}
-                  options={TIME_ZONES}
-                />
-              </div>
-            </td>
-            {getTimeOf(TIME_ZONES[zoneId].zone).map(
-              ({ time, current }, index) => (
-                <td
-                  className={"time" + (current ? " current" : "")}
-                  key={index}
-                >
-                  {time}
-                </td>
-              )
-            )}
-            <td>
-              <Button
-                variant="RED"
-                size="S"
-                onClick={() => {
-                  setSetStartTimes((prev: number[]) =>
-                    prev.filter((_, prevIndex) => prevIndex !== index)
-                  );
+    <div className="tableWrapper">
+      <table cellPadding={0} cellSpacing={2} className="table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Current time</th>
+            <th colSpan={24}>Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {startTimes.map((zoneId, index) => (
+            <tr key={index}>
+              <td>
+                <div style={{ width: 150 }}>
+                  <Select
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    onChange={(option) => {
+                      option !== null &&
+                        setSetStartTimes((prev) => {
+                          prev[index] = option?.value;
+                          return [...prev];
+                        });
+                    }}
+                    value={TIME_ZONES.find(
+                      (item) => item.value === startTimes[index]
+                    )}
+                    options={TIME_ZONES}
+                  />
+                </div>
+              </td>
+              <td
+                style={{
+                  textAlign: "center",
+                  cursor: "default",
+                  paddingRight: 5,
+                  paddingLeft: 5,
                 }}
               >
-                <img src={deleteIcon} alt="delete row" height="15px" />
-              </Button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                {moment.tz(TIME_ZONES[zoneId].zone).format(LT)}
+              </td>
+              {getTimeOf(TIME_ZONES[zoneId].zone).map(
+                ({ time, current }, index) => (
+                  <td
+                    className={"time" + (current ? " current" : "")}
+                    key={index}
+                  >
+                    {time}
+                  </td>
+                )
+              )}
+              <td style={{ textAlign: "center" }}>
+                <DeleteIcon
+                  className="deleteIcon"
+                  onClick={() => {
+                    setSetStartTimes((prev: number[]) =>
+                      prev.filter((_, prevIndex) => prevIndex !== index)
+                    );
+                  }}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

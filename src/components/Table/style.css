@@ -10,3 +10,8 @@
 .time.current {
   border-color: blue;
 }
+
+.deleteIcon {
+  height: 15px;
+  width: 15px;
+}

@@ -80,27 +80,25 @@ function Table(props: Props) {
         <tbody>
           {startTimes.map((zoneId, index) => (
             <tr key={index}>
-              <td>
-                <div style={{ width: 140 }}>
-                  <Select
-                    aria-label={"Select-" + index}
-                    menuPosition="fixed"
-                    components={{
-                      IndicatorSeparator: () => null,
-                    }}
-                    onChange={(option) => {
-                      option !== null &&
-                        setSetStartTimes((prev) => {
-                          prev[index] = option?.value;
-                          return [...prev];
-                        });
-                    }}
-                    value={TIME_ZONES.find(
-                      (item) => item.value === startTimes[index]
-                    )}
-                    options={TIME_ZONES}
-                  />
-                </div>
+              <td style={{ width: 130 }}>
+                <Select
+                  aria-label={"Select-" + index}
+                  menuPosition="fixed"
+                  components={{
+                    IndicatorSeparator: () => null,
+                  }}
+                  onChange={(option) => {
+                    option !== null &&
+                      setSetStartTimes((prev) => {
+                        prev[index] = option?.value;
+                        return [...prev];
+                      });
+                  }}
+                  value={TIME_ZONES.find(
+                    (item) => item.value === startTimes[index]
+                  )}
+                  options={TIME_ZONES}
+                />
               </td>
               <td className="current-time">
                 {moment.tz(TIME_ZONES[zoneId].zone).format(LT)}

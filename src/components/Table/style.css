@@ -10,9 +10,6 @@
 .time.current {
   border-color: blue;
 }
-table tr td {
-  width: 0%;
-}
 
 .deleteIcon {
   height: 15px;

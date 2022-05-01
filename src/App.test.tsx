@@ -1,4 +1,6 @@
 import { render, screen } from "@testing-library/react";
+import { click } from "@testing-library/user-event/dist/click";
+import { act } from "react-dom/test-utils";
 import App from "./App";
 describe("<App />", () => {
   it("Expect not to log any errors in console", () => {
@@ -8,6 +10,11 @@ describe("<App />", () => {
   });
   it("Expects an Add Timezone button", () => {
     render(<App />);
+    const table = screen.getByRole("table");
+    expect(table).toBeDefined();
     expect(screen.getByRole("button")).toHaveTextContent("Add Timezone");
+    click(screen.getByRole("button"));
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(table.children[1].childElementCount).toBe(2);
   });
 });

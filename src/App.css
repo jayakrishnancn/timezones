@@ -10,6 +10,11 @@
   overflow-y: visible;
   overflow-x: auto;
 }
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .table tr td.time {
   transition: 0.2s;

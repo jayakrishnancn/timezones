@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/timezones/static/css/main.ec1aa9c1.css",
+    "main.js": "/timezones/static/js/main.a6d706ba.js",
+    "static/js/787.f12b4426.chunk.js": "/timezones/static/js/787.f12b4426.chunk.js",
+    "index.html": "/timezones/index.html",
+    "static/media/delete.svg": "/timezones/static/media/delete.38033868848069aeefc15f23d2be4374.svg",
+    "main.ec1aa9c1.css.map": "/timezones/static/css/main.ec1aa9c1.css.map",
+    "main.a6d706ba.js.map": "/timezones/static/js/main.a6d706ba.js.map",
+    "787.f12b4426.chunk.js.map": "/timezones/static/js/787.f12b4426.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ec1aa9c1.css",
+    "static/js/main.a6d706ba.js"
+  ]
+}

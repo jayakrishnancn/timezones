@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { click } from "@testing-library/user-event/dist/click";
-import { act } from "react-dom/test-utils";
 import App from "./App";
 describe("<App />", () => {
   it("Expect not to log any errors in console", () => {
